@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenalan Yuk!</title>
+    <!-- Font Awesome untuk Logo Instagram, WhatsApp, dan TikTok -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* GANTI URL DI BAWAH DENGAN LINK FOTO/GIF 9:16 KAMU */
+            background-image: url('https://i.ibb.co/BV2Rxr2B/2f9ebr4bp3.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- EFEK SALJU --- */
+        .snowflakes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10vh;
+            color: white;
+            font-size: 1em;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+            animation-name: fall, shake;
+            animation-iteration-count: infinite, infinite;
+            animation-timing-function: linear, ease-in-out;
+        }
+
+        @keyframes fall {
+            0% { top: -10vh; }
+            100% { top: 110vh; }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(20px); }
+        }
+
+        /* Variasi Salju */
+        .snowflake:nth-child(1) { left: 10%; animation-duration: 10s, 3s; animation-delay: 0s, 0s; font-size: 1.5em; }
+        .snowflake:nth-child(2) { left: 20%; animation-duration: 12s, 4s; animation-delay: 1s, 1s; font-size: 1.2em; }
+        .snowflake:nth-child(3) { left: 30%; animation-duration: 9s, 3.5s; animation-delay: 4s, 2s; font-size: 0.8em; }
+        .snowflake:nth-child(4) { left: 40%; animation-duration: 15s, 4.5s; animation-delay: 2s, 0s; font-size: 1.8em; }
+        .snowflake:nth-child(5) { left: 50%; animation-duration: 11s, 3s; animation-delay: 8s, 1s; font-size: 1.1em; }
+        .snowflake:nth-child(6) { left: 60%; animation-duration: 14s, 4s; animation-delay: 6s, 2s; font-size: 1.4em; }
+        .snowflake:nth-child(7) { left: 70%; animation-duration: 10s, 3.5s; animation-delay: 2.5s, 0.5s; font-size: 0.9em; }
+        .snowflake:nth-child(8) { left: 80%; animation-duration: 13s, 3s; animation-delay: 1.5s, 1.5s; font-size: 1.6em; }
+        .snowflake:nth-child(9) { left: 90%; animation-duration: 9.5s, 4.2s; animation-delay: 3s, 0s; font-size: 1.3em; }
+        .snowflake:nth-child(10) { left: 5%; animation-duration: 11.5s, 3.8s; animation-delay: 5s, 1s; font-size: 1em; }
+
+        /* Kartu (Step) */
+        .card {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            padding: 30px 20px;
+            border-radius: 20px;
+            width: 85%;
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            position: relative; 
+        }
+
+        #step2, #step3 {
+            display: none;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            margin-bottom: 20px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 25px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 5px;
+        }
+
+        .btn-primary { background-color: #ff4757; color: white; width: 100%; }
+        .btn-primary:hover { background-color: #ff6b81; }
+
+        .btn-ayo { background-color: #2ed573; color: white; width: 40%; }
+        .btn-gak { background-color: #ff4757; color: white; width: 40%; }
+        
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .ig-btn { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .wa-btn { background-color: #25D366; }
+        .tiktok-btn { background-color: #000000; border: 1px solid #333;} /* Warna hitam khas TikTok */
+
+        .social-btn i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        /* Animasi Running Text */
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 6s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SALJU -->
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+    </div>
+
+    <!-- AUDIO MUSIK BACKGROUND -->
+    <audio id="bg-music" loop>
+        <source src="https://mp3tourl.com/audio/1789489472443-9df51907-72e2-4a50-aad7-9466b3025570.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- AUDIO KHUSUS TOMBOL "GAK" (Ganti src dengan efek suara yang kamu mau) -->
+    <audio id="sound-gak">
+        <source src="https://mp3tourl.com/audio/1789489202306-94496c60-c569-4193-a7ff-8341017db5b6.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- STEP 1 -->
+    <div id="step1" class="card">
+        <h2>Masukkan Nama Kamu</h2>
+        <input type="text" id="namaUser" placeholder="Ketik namamu di sini..." autocomplete="off">
+        <button class="btn-primary" onclick="lanjutStep2()">Lanjut</button>
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="step2" class="card">
+        <div class="marquee-container">
+            <div id="runningText" class="marquee-content"></div>
+        </div>
+        <div>
+            <button class="btn-ayo" onclick="lanjutStep3()">Ayo</button>
+            <button class="btn-gak" onclick="tekanGak()">Gak</button>
+        </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div id="step3" class="card">
+        <h2>Okee, panggil aja aku Han,<br>lanjut CHAT / FOLLOW 👇</h2>
+        
+        <!-- INSTAGRAM -->
+        <a href="https://www.instagram.com/hanz_932?stkn=Ymp6dTNjYzhtODFq" target="_blank" class="social-btn ig-btn">
+            <i class="fab fa-instagram"></i> Instagram
+        </a>
+        
+        <!-- TIKTOK -->
+        <a href="https://tiktok.com/@ig_hanz_932" target="_blank" class="social-btn tiktok-btn">
+            <i class="fab fa-tiktok"></i> TikTok
+        </a>
+
+        <!-- WHATSAPP -->
+        <a href="https://wa.me/6282299938030?text=hai+kak+mau+dong+jadi+pacar+kamu+😘🥰😍" target="_blank" class="social-btn wa-btn">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+    </div>
+
+    <script>
+        let nama = '';
+
+        function lanjutStep2() {
+            nama = document.getElementById('namaUser').value.trim();
+            
+            if (nama === '') {
+                alert('Isi nama dulu dong!');
+                return;
+            }
+
+            // Putar musik background
+            let musik = document.getElementById('bg-music');
+            musik.play();
+
+            // Set running text
+            document.getElementById('runningText').innerText = `Hallo kak ${nama} kenalan yuk`;
+
+            // Pindah ke step 2
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+        }
+
+        function tekanGak() {
+    // Ambil elemen audio sound 'gak' dan musik background
+    let soundGak = document.getElementById('sound-gak');
+    let bgMusic = document.getElementById('bg-music');
+
+    // Jeda (pause) musik background utama
+    bgMusic.pause();
+    
+    // Me-reset audio ke awal jika ditekan berkali-kali
+    soundGak.currentTime = 0; 
+    soundGak.play();
+
+    // Ubah running teks
+    document.getElementById('runningText').innerText = "Dasar egois 😤";
+
+    // Event listener yang mendeteksi ketika soundGak selesai diputar
+    soundGak.onended = function() {
+        // Mulai kembali musik background utama secara otomatis
+        bgMusic.play();
+    };
+}
+
+        function lanjutStep3() {
+            // Pindah ke step 3
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('step3').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
